@@ -1,6 +1,7 @@
 package standAloneTest;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -51,6 +52,8 @@ public class StandAloneTest {
         //driver.findElement(By.xpath("//input[@placeholder='Select Country']/following-sibling::section//button/span[normalize-space(text())='India']")).click();
         String xpath = String.format("//input[@placeholder='Select Country']/following-sibling::section//button/span[normalize-space(text())='%s']", countryName);
         driver.findElement(By.xpath(xpath)).click();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.cssSelector(".action__submit")));
         driver.findElement(By.cssSelector(".action__submit")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".hero-primary")));
         String message= driver.findElement(By.cssSelector(".hero-primary")).getText();
