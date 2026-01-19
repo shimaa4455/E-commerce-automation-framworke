@@ -17,10 +17,10 @@ public class ProductsPages extends CommonMethodes {
         PageFactory.initElements(driver, this);
     }
     //===========Locators=====================
-    By products = By.cssSelector(".mb-3");
-    By addToCard = By.cssSelector(".card-body button:last-of-type");
-    By toastMessage =By.cssSelector("#toast-container");
-    By shadow =By.cssSelector(".ngx-spinner-overlay");
+    public By products = By.cssSelector(".mb-3");
+    public By addToCard = By.cssSelector(".card-body button:last-of-type");
+    public By toastMessage =By.cssSelector("#toast-container");
+    public By shadow =By.cssSelector(".ngx-spinner-overlay");
 
 
     //=========methodes===================
@@ -42,5 +42,6 @@ public class ProductsPages extends CommonMethodes {
         waitForTheElemnetToAppear(toastMessage);
         waitForElemntToDisappear(shadow);
     }
+
 
 }
