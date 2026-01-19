@@ -23,10 +23,11 @@ public class LoginPage extends CommonMethodes {
     @FindBy(id="login")
     WebElement login;
     //========interactionOfPage==============
-    public void login(String email, String password) {
+    public ProductsPages login(String email, String password) {
         userEmail.sendKeys(email);
         userPassword.sendKeys(password);
         login.click();
+        return new ProductsPages(driver);
     }
     public void goTo()
     {

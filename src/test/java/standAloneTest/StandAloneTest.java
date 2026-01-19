@@ -59,7 +59,5 @@ public class StandAloneTest {
         String message= driver.findElement(By.cssSelector(".hero-primary")).getText();
         System.out.println(message);
         Assert.assertTrue(message.equalsIgnoreCase("Thankyou for the order."));
-
-
     }
 }

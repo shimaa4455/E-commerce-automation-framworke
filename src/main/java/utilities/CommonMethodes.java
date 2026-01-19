@@ -5,6 +5,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.CartPage;
 
 import java.time.Duration;
 
@@ -25,10 +26,10 @@ public class CommonMethodes {
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(element));
     }
-    public void goToCartPage()
+    public CartPage goToCartPage()
     {
         driver.findElement(cartIcon).click();
-
+        return new CartPage(driver);
     }
     public void waitForElemntToDisappear(By element)
     {
@@ -38,7 +39,7 @@ public class CommonMethodes {
     public void scrollDown(By element)
     {
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView(true);", element);
+        js.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(element));
     }
 
 

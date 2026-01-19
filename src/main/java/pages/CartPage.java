@@ -17,8 +17,8 @@ public class CartPage extends CommonMethodes {
         PageFactory.initElements(driver, this);
     }
     //============locators================
-    public By cartSection= By.cssSelector(".cartSection");
-    public By cartProductslocator= By.xpath("//div[@class='cartSection']/h3");
+    public By cartSection = By.cssSelector(".cartSection");
+    public By cartProductslocator = By.xpath("//div[@class='cartSection']/h3");
     public By checkoutButton =By.cssSelector(".totalRow button");
 
 
@@ -33,8 +33,9 @@ public class CartPage extends CommonMethodes {
         return match;
     }
 
-    public void checkOut()
+    public CheckOutPage checkOut()
     {
         driver.findElement(checkoutButton).click();
+        return new CheckOutPage(driver);
     }
 }
