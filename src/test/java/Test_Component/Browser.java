@@ -40,14 +40,9 @@ public class Browser {
     @BeforeMethod
     public LoginPage lunchApplication() throws Exception {
         driver = intialBrowser();
-        LoginPage loginpage = new LoginPage(driver);
-        loginpage.goTo();
-        return loginpage;
-    }
-    @AfterMethod
-    public void quitDriver()
-    {
-        driver.quit();
+        loginPage = new LoginPage(driver);
+        loginPage.goTo();
+        return loginPage;
     }
 
     }

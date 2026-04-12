@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,6 +23,7 @@ public class LoginPage extends CommonMethodes {
     WebElement userPassword;
     @FindBy(id="login")
     WebElement login;
+    By errorMessage = By.cssSelector("div.toast-message");
     //========interactionOfPage==============
     public ProductsPages login(String email, String password) {
         userEmail.sendKeys(email);
@@ -33,6 +35,11 @@ public class LoginPage extends CommonMethodes {
     {
         driver.get("https://rahulshettyacademy.com/client");
 
+    }
+    public String getErrorMessage()
+    {
+        waitForTheElemnetToAppear(errorMessage);
+        return driver.findElement(errorMessage).getText();
     }
 
 

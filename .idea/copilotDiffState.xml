@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="/LoginPage (snapshot).java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="/LoginPage (snapshot).java" />
+              <option name="originalContent" value="package pages;&#10;&#10;import org.openqa.selenium.By;&#10;import org.openqa.selenium.WebDriver;&#10;import org.openqa.selenium.WebElement;&#10;import org.openqa.selenium.support.FindBy;&#10;import org.openqa.selenium.support.PageFactory;&#10;import utilities.CommonMethodes;&#10;&#10;public class LoginPage extends CommonMethodes {&#10;&#10;    WebDriver driver;&#10;    public LoginPage(WebDriver driver) {&#10;        //super is key word inhert the driver from child to parent&#10;        super(driver);&#10;        this.driver = driver;&#10;        PageFactory.initElements(driver, this);&#10;    }&#10;    //=========Locators============&#10;    @FindBy(id=&quot;userEmail&quot;)&#10;    WebElement userEmail;&#10;    @FindBy(id=&quot;userPassword&quot;)&#10;    WebElement userPassword;&#10;    @FindBy(id=&quot;login&quot;)&#10;    WebElement login;&#10;    By errorMessage = By.xpath(&quot;//div[@role='alert']&quot;);&#10;    //========interactionOfPage==============&#10;    public ProductsPages login(String email, String password) {&#10;        userEmail.sendKeys(email);&#10;        userPassword.sendKeys(password);&#10;        login.click();&#10;        return new ProductsPages(driver);&#10;    }&#10;    public void goTo()&#10;    {&#10;        driver.get(&quot;https://rahulshettyacademy.com/client&quot;);&#10;&#10;    }&#10;    public String getErrorMessage()&#10;    {&#10;        waitForTheElemnetToAppear(errorMessage);&#10;        return driver.findElement(errorMessage).getText();&#10;    }&#10;&#10;&#10;}&#10;" />
+              <option name="updatedContent" value="package pages;&#10;&#10;import org.openqa.selenium.By;&#10;import org.openqa.selenium.WebDriver;&#10;import org.openqa.selenium.WebElement;&#10;import org.openqa.selenium.support.FindBy;&#10;import org.openqa.selenium.support.PageFactory;&#10;import utilities.CommonMethodes;&#10;&#10;public class LoginPage extends CommonMethodes {&#10;&#10;    WebDriver driver;&#10;    public LoginPage(WebDriver driver) {&#10;        //super is key word inhert the driver from child to parent&#10;        super(driver);&#10;        this.driver = driver;&#10;        PageFactory.initElements(driver, this);&#10;    }&#10;    //=========Locators============&#10;    @FindBy(id=&quot;userEmail&quot;)&#10;    WebElement userEmail;&#10;    @FindBy(id=&quot;userPassword&quot;)&#10;    WebElement userPassword;&#10;    @FindBy(id=&quot;login&quot;)&#10;    WebElement login;&#10;    By errorMessage = By.xpath(&quot;//div[@aria-label='Incorrect email or password.']&quot;);&#10;    //========interactionOfPage==============&#10;    public ProductsPages login(String email, String password) {&#10;        userEmail.sendKeys(email);&#10;        userPassword.sendKeys(password);&#10;        login.click();&#10;        return new ProductsPages(driver);&#10;    }&#10;    public void goTo()&#10;    {&#10;        driver.get(&quot;https://rahulshettyacademy.com/client&quot;);&#10;&#10;    }&#10;    public String getErrorMessage()&#10;    {&#10;        waitForTheElemnetToAppear(errorMessage);&#10;        return driver.findElement(errorMessage).getAttribute(&quot;aria-label&quot;);&#10;    }&#10;&#10;&#10;}&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
