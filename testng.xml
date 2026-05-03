@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true" name="F:/Automation/selenuim/E-commerceAtomationFramwork">
+        <classes>
+            <class name="E2ETestCases.TestErrorValidation">
+                <methods>
+                    <include name="testLoginFailure"/>
+                    <include name="productErrorValidation"/>
+                </methods>
+            </class>
+            <class name="E2ETestCases.TestSubmitOrder">
+                <methods>
+                    <include name="testSubmitOrder"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
