@@ -44,10 +44,10 @@ public class Browser {
         loginPage.goTo();
         return loginPage;
     }
-    @AfterMethod
+   /* @AfterMethod
     public void quitDriver()
     {
         driver.quit();
-    }
+    }*/
     }
 

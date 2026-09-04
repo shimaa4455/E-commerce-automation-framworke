@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.CartPage;
+import pages.OrderPage;
 
 import java.time.Duration;
 
@@ -19,6 +20,7 @@ public class CommonMethodes {
     }
     //=========Locators============
     By cartIcon = By.xpath("//button[@routerlink='/dashboard/cart']");
+    By orderIcon= By.xpath("//button[contains(., 'ORDERS')]");
     //=====================methodes======================
     public void waitForTheElemnetToAppear(By element)
     {
@@ -41,6 +43,13 @@ public class CommonMethodes {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(element));
     }
+    public OrderPage goToOrderPage()
+    {
+        waitForTheElemnetToAppear(orderIcon);
+        driver.findElement(orderIcon).click();
+        return new OrderPage(driver);
+    }
+
 
 
 

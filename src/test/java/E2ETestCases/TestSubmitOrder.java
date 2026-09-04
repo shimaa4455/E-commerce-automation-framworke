@@ -14,10 +14,12 @@ import java.util.List;
 
 public class TestSubmitOrder extends Browser {
 
+    String productName = "ADIDAS ORIGINAL";
+
+
     @Test
     public void testSubmitOrder() throws Exception {
         String countryName = "Albania";
-        String productName = "ADIDAS ORIGINAL";
         //============================E2E test case==================
         //validate the idem added to the cart successfully.
 
@@ -34,8 +36,14 @@ public class TestSubmitOrder extends Browser {
         ConfirmationPage confirmationPage= checkOutPage.submitOrder();
         String ConfirmationMessage = confirmationPage.getConfirmMessage();
         Assert.assertTrue(ConfirmationMessage.equalsIgnoreCase("Thankyou for the order."));
-
-
+    }
+    @Test(dependsOnMethods = {"testSubmitOrder"})
+    public void testOrderHistory()
+    {
+        ProductsPages productspage = loginPage.login("shimaa@gmail.com","swaNy4455");
+        OrderPage orderPage = productspage.goToOrderPage();
+        Boolean match = orderPage.verifyOrderDisplay(productName);
+        Assert.assertTrue(match);
 
 
     }
