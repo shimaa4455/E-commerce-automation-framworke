@@ -1,51 +1,52 @@
 package E2ETestCases;
 
 import Test_Component.Browser;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.*;
+import pages.CartPage;
+import pages.CheckOutPage;
+import pages.ConfirmationPage;
+import pages.LoginPage;
+import pages.OrderPage;
+import pages.ProductsPages;
 
-import java.time.Duration;
 import java.util.List;
+import org.openqa.selenium.WebElement;
 
 public class TestSubmitOrder extends Browser {
 
     String productName = "ADIDAS ORIGINAL";
 
-
     @Test
     public void testSubmitOrder() throws Exception {
         String countryName = "Albania";
-        //============================E2E test case==================
-        //validate the idem added to the cart successfully.
 
-        //LoginPage loginPage = lunchApplication();
-        //ProductsPages productspage = new ProductsPages(driver);
+        // 🔹 Create LoginPage with thread-safe driver
+        LoginPage loginPage = new LoginPage(getDriver());
         ProductsPages productspage = loginPage.login("shimaa@gmail.com","swaNy4455");
+
         List<WebElement> products = productspage.getProducts();
         productspage.addProductToTheCard(productName);
+
         CartPage cartpage = productspage.goToCartPage();
-        Boolean match = cartpage.verfiyProductDisplay(productName);
-        Assert.assertTrue(match);
+        Assert.assertTrue(cartpage.verfiyProductDisplay(productName)); // fix spelling in CartPage
+
         CheckOutPage checkOutPage = cartpage.checkOut();
         checkOutPage.chooseCountry(countryName);
-        ConfirmationPage confirmationPage= checkOutPage.submitOrder();
-        String ConfirmationMessage = confirmationPage.getConfirmMessage();
-        Assert.assertTrue(ConfirmationMessage.equalsIgnoreCase("Thankyou for the order."));
+
+        ConfirmationPage confirmationPage = checkOutPage.submitOrder();
+        String confirmationMessage = confirmationPage.getConfirmMessage();
+        Assert.assertTrue(confirmationMessage.equalsIgnoreCase("Thankyou for the order."));
     }
-    @Test(dependsOnMethods = {"testSubmitOrder"})
-    public void testOrderHistory()
-    {
+
+    @Test
+    public void testOrderHistory() {
+        // 🔹 Fresh LoginPage for this test
+        LoginPage loginPage = new LoginPage(getDriver());
         ProductsPages productspage = loginPage.login("shimaa@gmail.com","swaNy4455");
+
         OrderPage orderPage = productspage.goToOrderPage();
         Boolean match = orderPage.verifyOrderDisplay(productName);
         Assert.assertTrue(match);
-
-
     }
-
 }

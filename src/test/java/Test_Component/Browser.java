@@ -9,45 +9,54 @@ import org.testng.annotations.BeforeMethod;
 import pages.LoginPage;
 
 import java.io.FileInputStream;
+import java.time.Duration;
 import java.util.Properties;
 
 public class Browser {
 
-    public WebDriver driver;
-    public LoginPage loginPage;
-    public WebDriver intialBrowser() throws Exception
-    {
+    // ThreadLocal driver for parallel tests
+    private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+
+    public WebDriver getDriver() {
+        return driver.get();
+    }
+
+    public WebDriver intialBrowser() throws Exception {
         Properties prop = new Properties();
-        try (FileInputStream globalFile = new FileInputStream(System.getProperty("user.dir") + "//src//main//java//resourse//global.properties")) {
+        try (FileInputStream globalFile = new FileInputStream(
+                System.getProperty("user.dir") + "//src//main//java//resourse//global.properties")) {
             prop.load(globalFile);
         }
         String browser = prop.getProperty("browser");
+
+        WebDriver localDriver;
         if (browser.equalsIgnoreCase("chrome")) {
-            driver = new ChromeDriver();
+            localDriver = new ChromeDriver();
+        } else if (browser.equalsIgnoreCase("firefox")) {
+            localDriver = new FirefoxDriver();
+        } else if (browser.equalsIgnoreCase("edge")) {
+            localDriver = new EdgeDriver();
+        } else {
+            throw new RuntimeException("Unsupported browser: " + browser);
         }
-        else if (browser.equalsIgnoreCase("firefox"))
-        {
-        driver = new FirefoxDriver();
-        }
-        else if  (browser.equalsIgnoreCase("edge"))
-        {
-            driver = new EdgeDriver();
-        }
-        driver.manage().window().maximize();
-        return driver;
 
+        localDriver.manage().window().maximize();
+        localDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+//hena b7ot kol driver fe thread lw7do
+        driver.set(localDriver);
+        return getDriver();
     }
+
     @BeforeMethod
-    public LoginPage lunchApplication() throws Exception {
-        driver = intialBrowser();
-        loginPage = new LoginPage(driver);
-        loginPage.goTo();
-        return loginPage;
-    }
-   /* @AfterMethod
-    public void quitDriver()
-    {
-        driver.quit();
-    }*/
+    public void lunchApplication() throws Exception {
+        WebDriver localDriver = intialBrowser();
+        // Page objects should be created inside each test, not stored here
+        new LoginPage(localDriver).goTo();
     }
 
+   @AfterMethod
+    public void quitDriver() {
+      getDriver().quit();
+        driver.remove();
+   }
+}
