@@ -47,16 +47,16 @@ public class Browser {
         return getDriver();
     }
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void lunchApplication() throws Exception {
         WebDriver localDriver = intialBrowser();
         // Page objects should be created inside each test, not stored here
         new LoginPage(localDriver).goTo();
     }
 
-   @AfterMethod
+   /*@AfterMethod
     public void quitDriver() {
       getDriver().quit();
         driver.remove();
-   }
+   }*/
 }

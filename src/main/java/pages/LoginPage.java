@@ -14,6 +14,7 @@ public class LoginPage extends CommonMethodes {
         //super is key word inhert the driver from child to parent
         super(driver);
         this.driver = driver;
+        System.out.println("LoginPage driver: " + driver);
         PageFactory.initElements(driver, this);
     }
     //=========Locators============

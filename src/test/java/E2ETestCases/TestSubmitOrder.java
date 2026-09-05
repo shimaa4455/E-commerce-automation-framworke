@@ -2,6 +2,7 @@ package E2ETestCases;
 
 import Test_Component.Browser;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.CartPage;
 import pages.CheckOutPage;
@@ -15,15 +16,15 @@ import org.openqa.selenium.WebElement;
 
 public class TestSubmitOrder extends Browser {
 
-    String productName = "ADIDAS ORIGINAL";
+    //String productName = "ADIDAS ORIGINAL";
 
-    @Test
-    public void testSubmitOrder() throws Exception {
+    @Test(dataProvider = "getData", groups = {"purchase"})
+    public void testSubmitOrder(String email, String password, String productName) throws Exception {
         String countryName = "Albania";
 
         // 🔹 Create LoginPage with thread-safe driver
         LoginPage loginPage = new LoginPage(getDriver());
-        ProductsPages productspage = loginPage.login("shimaa@gmail.com","swaNy4455");
+        ProductsPages productspage = loginPage.login(email, password);
 
         List<WebElement> products = productspage.getProducts();
         productspage.addProductToTheCard(productName);
@@ -46,7 +47,11 @@ public class TestSubmitOrder extends Browser {
         ProductsPages productspage = loginPage.login("shimaa@gmail.com","swaNy4455");
 
         OrderPage orderPage = productspage.goToOrderPage();
-        Boolean match = orderPage.verifyOrderDisplay(productName);
+        Boolean match = orderPage.verifyOrderDisplay("ADIDAS ORIGINAL");
         Assert.assertTrue(match);
+    }
+    @DataProvider(name = "getData")
+    public Object[][] getData() {
+        return new Object[][]{{"shetty@gmail.com", "Iamking@000", "ZARA COAT 3"},{"shimaa@gmail.com", "swaNy4455", "ADIDAS ORIGINAL"}};
     }
 }
