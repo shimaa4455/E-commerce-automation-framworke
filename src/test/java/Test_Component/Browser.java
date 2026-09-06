@@ -1,5 +1,8 @@
 package Test_Component;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -8,8 +11,12 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import pages.LoginPage;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 
 public class Browser {
@@ -45,6 +52,18 @@ public class Browser {
 //hena b7ot kol driver fe thread lw7do
         driver.set(localDriver);
         return getDriver();
+    }
+
+//dataReader
+    public List<HashMap< String,String >> getJsonDataToMap(String filePathe) throws IOException {
+        //json to string
+        String jsonContent= FileUtils.readFileToString(new File(filePathe),"standardCharsets.UTF_8");
+
+        //string to hashmap
+        ObjectMapper mapper = new ObjectMapper();
+        List<HashMap< String,String >> data= mapper.readValue(jsonContent, new TypeReference< List <HashMap< String,String>>>() {
+        });
+        return data;
     }
 
     @BeforeMethod(alwaysRun = true)

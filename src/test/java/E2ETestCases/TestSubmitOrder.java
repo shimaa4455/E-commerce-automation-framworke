@@ -11,6 +11,8 @@ import pages.LoginPage;
 import pages.OrderPage;
 import pages.ProductsPages;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import org.openqa.selenium.WebElement;
 
@@ -44,14 +46,17 @@ public class TestSubmitOrder extends Browser {
     public void testOrderHistory() {
         // 🔹 Fresh LoginPage for this test
         LoginPage loginPage = new LoginPage(getDriver());
-        ProductsPages productspage = loginPage.login("shimaa@gmail.com","swaNy4455");
+        ProductsPages productspage = loginPage.login("shimaa@gmail.com", "swaNy4455");
 
         OrderPage orderPage = productspage.goToOrderPage();
         Boolean match = orderPage.verifyOrderDisplay("ADIDAS ORIGINAL");
         Assert.assertTrue(match);
     }
+
     @DataProvider(name = "getData")
-    public Object[][] getData() {
-        return new Object[][]{{"shetty@gmail.com", "Iamking@000", "ZARA COAT 3"},{"shimaa@gmail.com", "swaNy4455", "ADIDAS ORIGINAL"}};
+    public Object[][] getData() throws IOException {
+
+        List<HashMap<String, String>> data = getJsonDataToMap(System.getProperty("user.dir") + "\\src\\test\\java\\TestData\\loginData.json");
+        return new Object[][]{{data.get(0)}, {data.get(1)}};
     }
 }
