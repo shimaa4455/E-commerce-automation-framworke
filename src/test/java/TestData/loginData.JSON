@@ -2,11 +2,11 @@
 {
 "email" : "shetty@gmail.com",
 "password" : "Iamking@000",
-"product" : "ZARA COAT 3"
+"productName" : "ZARA COAT 3"
 },
 {
 "email" : "shimaa@gmail.com",
 "password" : "swaNy4455",
-"product" : "ADIDAS ORIGINAL"
+"productName" : "ADIDAS ORIGINAL"
 }
 ]

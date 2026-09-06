@@ -11,6 +11,4 @@
             <class name="E2ETestCases.TestSubmitOrder"/>
         </classes>
     </test>
-
-
 </suite>

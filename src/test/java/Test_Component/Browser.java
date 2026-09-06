@@ -56,7 +56,7 @@ public class Browser {
 
 //dataReader
     public List<HashMap< String,String >> getJsonDataToMap(String filePath) throws IOException {
-        //loginData to string
+        //loginData.JSON to string
         String jsonContent= FileUtils.readFileToString(new File(filePath), "UTF-8");
 
         //string to hashmap

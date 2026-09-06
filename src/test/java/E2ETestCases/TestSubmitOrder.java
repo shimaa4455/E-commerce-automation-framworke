@@ -21,18 +21,18 @@ public class TestSubmitOrder extends Browser {
     //String productName = "ADIDAS ORIGINAL";
 
     @Test(dataProvider = "getData", groups = {"purchase"})
-    public void testSubmitOrder(String email, String password, String productName) throws Exception {
+    public void testSubmitOrder(HashMap<String, String> input) throws Exception {
         String countryName = "Albania";
 
         // 🔹 Create LoginPage with thread-safe driver
         LoginPage loginPage = new LoginPage(getDriver());
-        ProductsPages productspage = loginPage.login(email, password);
+        ProductsPages productspage = loginPage.login(input.get("email"), input.get("password"));
 
         List<WebElement> products = productspage.getProducts();
-        productspage.addProductToTheCard(productName);
+        productspage.addProductToTheCard(input.get("productName"));
 
         CartPage cartpage = productspage.goToCartPage();
-        Assert.assertTrue(cartpage.verfiyProductDisplay(productName)); // fix spelling in CartPage
+        Assert.assertTrue(cartpage.verfiyProductDisplay(input.get("productName"))); // fix spelling in CartPage
 
         CheckOutPage checkOutPage = cartpage.checkOut();
         checkOutPage.chooseCountry(countryName);
@@ -56,7 +56,7 @@ public class TestSubmitOrder extends Browser {
     @DataProvider(name = "getData")
     public Object[][] getData() throws IOException {
 
-        List<HashMap<String, String>> data = getJsonDataToMap(System.getProperty("user.dir") + "\\src\\test\\java\\TestData\\loginData.json");
+        List<HashMap<String, String>> data = getJsonDataToMap(System.getProperty("user.dir") + "\\src\\test\\java\\TestData\\loginData.JSON");
         return new Object[][]{{data.get(0)}, {data.get(1)}};
     }
 }
