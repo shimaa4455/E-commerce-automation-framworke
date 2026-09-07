@@ -6,7 +6,7 @@ import com.aventstack.extentreports.Status;
 import org.testng.ITestListener;
 import resourse.ExtentReportsNG;
 
-public class Listeners  implements ITestListener {
+public class Listeners extends Browser implements ITestListener {
 
     //hold the entry for me report
     ExtentTest test;

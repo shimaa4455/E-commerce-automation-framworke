@@ -3,6 +3,8 @@ package Test_Component;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -64,6 +66,16 @@ public class Browser {
         List<HashMap< String,String >> data= mapper.readValue(jsonContent, new TypeReference< List <HashMap< String,String>>>() {
         });
         return data;
+    }
+    //take screenshot
+    public String getScreenShot(String testCaseName) throws IOException
+    {
+        TakesScreenshot ts=(TakesScreenshot) getDriver();
+        File source=ts.getScreenshotAs(OutputType.FILE);
+        File file = new File (System.getProperty("user.dir")+"//Screenshots/"+testCaseName+".png");
+        FileUtils.copyFile(source, file);
+        return System.getProperty("user.dir")+"//Screenshots/"+testCaseName+".png";
+
     }
 
     @BeforeMethod(alwaysRun = true)
