@@ -74,6 +74,7 @@ public class Browser {
         File source=ts.getScreenshotAs(OutputType.FILE);
         File file = new File (System.getProperty("user.dir")+"//Screenshots/"+testCaseName+".png");
         FileUtils.copyFile(source, file);
+        //to attach the screenshot at the report
         return System.getProperty("user.dir")+"//Screenshots/"+testCaseName+".png";
 
     }

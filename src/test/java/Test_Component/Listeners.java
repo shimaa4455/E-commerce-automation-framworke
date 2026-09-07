@@ -6,6 +6,8 @@ import com.aventstack.extentreports.Status;
 import org.testng.ITestListener;
 import resourse.ExtentReportsNG;
 
+import java.io.IOException;
+
 public class Listeners extends Browser implements ITestListener {
 
     //hold the entry for me report
@@ -27,7 +29,14 @@ public class Listeners extends Browser implements ITestListener {
     @Override
     public void onTestFailure(org.testng.ITestResult result) {
         // Code to execute when a test fails
-        test.log(Status.FAIL,"Test "+result.getMethod().getMethodName());
+        test.log(Status.FAIL, result.getThrowable());
+        String filePath;
+        try {
+            filePath = getScreenShot(result.getMethod().getMethodName());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        test.addScreenCaptureFromPath(filePath, result.getMethod().getMethodName());
     }
 
     @Override
